@@ -1,0 +1,121 @@
+spring:
+  ##数据库连接信息
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/eschool?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    ###################以下为druid增加的配置###########################
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙，此处是filter修改的地方
+    filters:
+      commons-log.connection-logger-name: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    useGlobalDataSourceStat: true
+    druid:
+      filter:
+        stat:
+          log-slow-sql: true
+
+# druid管理登录用户名，与密码，访问地址为：http://<ip>:<port>/druid
+loginUsername: root
+loginPassword: root
+
+
+#统一设置eureka instance地址
+eurekaInstanceIpAddr: ${spring.cloud.client.ip-address}
+eurekaInstanceUrl: ${eurekaInstanceIpAddr}:${server.port}${server.servlet.path}
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://admin:admin@172.18.226.180:8761/eureka/
+  instance:
+    instance-id: ${eurekaInstanceIpAddr}:${server.port}
+    prefer-ip-address: true
+    home-page-url: http://${eurekaInstanceUrl}
+    status-page-url: http://${eurekaInstanceUrl}actuator/info
+    health-check-url: http://${eurekaInstanceUrl}actuator/health
+
+#oa的配置文件
+oa:
+  apiUrl: http://10.10.48.215:3449/OrgService.asmx
+  token: GC001
+sso:
+  service: http://opssotest.oppein.com
+  ticketUrl: http://opssotest.oppein.com/sso/v1/tickets
+  serviceValidateUrl: http://opssotest.oppein.com/sso/serviceValidate?ticket={ticket}&service={service}
+
+#阿里云服务配置
+aliyun:
+  #用于标识、校验用户身份
+  accessKey: LTAIMtYRSTaAQ70n
+  #用于标识、校验用户身份
+  secretKey: xLjQ9j8jsTtefwKdsFpEWikzAncZEc
+  #mq配置
+  rocketmq:
+    #Producer的标识
+    producerId: PID_EM_DEV
+    #Consumer的标识
+    consumerId: CID_EM_DEV
+    #消息主题
+    topic: em_topic_dev
+    #标签 不填写默认为全部,多个按xx||yy||zz形式配置
+    tag:
+    #消息队列服务接入点
+    onsAddr: http://onsaddr-internet.aliyun.com/rocketmq/nsaddr4client-internet
+    #超时时间 单位(毫秒)
+    sendMsgTimeoutMillis: 3000
+    #顺序消息消费失败进行重试前的等待时间 单位(毫秒)
+    suspendTimeMillis: 100
+    #消息消费失败时的最大重试次数
+    maxReconsumeTimes: 20
+  #oss配置
+  oss:
+    #Endpoint:设置为深圳
+    endpoint: http://oss-cn-shenzhen.aliyuncs.com
+    #bucketName
+    bucketName: oppcio-gcgl-test
+
+#个推配置
+getui:
+  app-id: 1004rICwzJ9uqtsbkeTXU7
+  app-key: ukIIpRhmffAemPlMp1yCA9
+  master-secret: jLJJ064xNU9KTO2ZXN9sk4
+  host: http://sdk.open.api.igexin.com/apiex.htm
+
+#BPM配置
+bpm:
+  environment: GC-DEV
+
+#邮箱配置
+mail:
+  smtp: smtp.mxhichina.com
+  port: 465
+  username: Listening@foreveross.com
+  password: xxx172737@
+
+
+

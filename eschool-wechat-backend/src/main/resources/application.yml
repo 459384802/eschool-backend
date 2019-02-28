@@ -1,0 +1,41 @@
+# Tomcat
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 80
+  servlet:
+    path: /
+spring:
+  profiles:
+    # 环境 dev|test|pro
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  application:
+    name: eschool-wechat
+  mvc:
+    throw-exception-if-no-handler-found: true
+  #    static-path-pattern: /resources/**
+  #    prefer-ip-address: true
+  resources:
+    static-locations: classpath:/static/
+
+mybatis-plus:
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  #mapper文件配置
+  mapper-locations: classpath:/mapper/**/*.xml
+  configuration:
+    #驼峰法
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    #别名设置
+  type-aliases-package: com.eschool.**.**.entity
+
