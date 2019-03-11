@@ -1,7 +1,7 @@
 spring:
   ##数据库连接信息
   datasource:
-    url: jdbc:mysql://192.168.86.147:3306/eschool?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/eschool?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver

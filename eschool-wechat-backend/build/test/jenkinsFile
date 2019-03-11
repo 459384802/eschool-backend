@@ -1,0 +1,61 @@
+pipeline {
+  agent any
+  stages {
+	# stage的名称会在监控界面显示，名称可以随意取
+    stage('compile') {
+      steps {
+		# 执行shell脚本：清class文件，打包构建，打出的包存放在项目的target目录下
+        sh 'mvn clean package'
+      }
+    }
+    stage('copy') {
+      steps {
+		# 把jar包复制到build目录中，方便把jar包和其他脚本文件一起发送到远程服务器
+        sh 'cp eschool-wechat-backend/target/eschool-wechat-backend.jar eschool-wechat-backend/build/test/'
+      }
+    }
+    stage('SSH transfer') {
+      steps {
+		# 远程访问服务器
+        sshPublisher(
+		  # false：出现异常不继续执行
+          continueOnError: false,
+		  # true：出现异常就让该stage失败
+		  failOnError: true,
+          publishers: [
+            sshPublisherDesc(
+			  # 对应系统设置里publish over ssh配置的服务器name
+              configName: "node-test",
+              transfers: [
+                sshTransfer(
+				  # 指定源文件的地址
+                  sourceFiles: "eschool-wechat-backend/build/test/*",
+				  # 指定待发送的文件地址的前缀（即会将sourceFiles地址截取掉removePrefix地址部分，留下来的就是会发送到远程服务器的部分）
+                  removePrefix: "eschool-wechat-backend/build/test/",
+				  # 待发送到的远程服务器地址的目录，相对于ssh连接到服务器后的当前路径（这个当前路径是在系统配置里配置ssh配好的）
+                  remoteDirectory: "dockerfile/eschool-wechat-backend/",
+				  # 发送完后在远程服务器执行脚本run.sh（这个脚本是由上面发送到远程服务器的）
+                  execCommand: "cd dockerfile/eschool-wechat-backend && chmod +x run.sh && ./run.sh"
+                )
+	          ],
+	          usePromotionTimestamp: false,
+              useWorkspaceInPromotion: false,
+              verbose: false
+            )
+	      ]
+	    )
+	  }
+    }
+  }
+  # 配置post请求（发送邮件）
+  post {
+    always {
+      step([$class: 'Mailer',
+		# 只要构建失败就发送邮件（需要在系统设置里配置邮件相关配置）
+        notifyEveryUnstableBuild: true,
+        recipients: "459384802@qq.com",
+        sendToIndividuals: true
+      ])
+    }
+  }
+}
