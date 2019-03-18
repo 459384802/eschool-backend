@@ -140,12 +140,47 @@
 	</dependencies>
 
 	<build>
+		<!--指定jar包的名称-->
+		<finalName>${project.artifactId}</finalName>
+
 		<plugins>
+			<!--将Spring Boot应用打包为可执行的jar或war文件，然后以通常的方式运行Spring Boot应用-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!--开启热部署，在开发调试时修改代码不需要每次都手动重启-->
+                	<fork>true</fork>
+					<!--打包时引入本地依赖：项目中使用了systemPath才使用-->
+				    <!--<includeSystemScope>true</includeSystemScope>-->
+				</configuration>
 			</plugin>
+			<!--指定进行编译的jdk版本-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!--跳过执行测试用例-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<!--指定maven的骨架-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-archetype-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+
 		</plugins>
+
 	</build>
 
 </project>
