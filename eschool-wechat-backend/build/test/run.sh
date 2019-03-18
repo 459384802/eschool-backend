@@ -1,5 +1,5 @@
 #!/bin/sh
-cd /root/dockerfile/eschool-wechat-backend
+cd /root/docker_data/dockerfile/eschool-wechat-backend
 # 使用当前目录下的dockerfile构建镜像
 docker build -t yhc/eschool:test .
 # 删除原来的容器
