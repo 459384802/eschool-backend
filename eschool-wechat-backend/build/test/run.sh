@@ -7,7 +7,7 @@ echo delete image $aa ...
 docker rmi $aa
 fi
 # 使用当前目录下的dockerfile构建镜像
-docker build -t yhc/eschool:test .
+docker build -t yhc/eschool .
 # 删除原来的容器
 aa=$(docker ps -a|grep eschool|awk '{print $1}')
 if [ "$aa" != "" ] ; then
