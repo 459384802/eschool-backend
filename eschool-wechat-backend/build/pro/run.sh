@@ -1,5 +1,5 @@
 #!/bin/sh
-cd /root/docker_data/dockerfile/eschool-wechat-backend
+cd /root/dockerfile/eschool-wechat-backend
 # 删除原来的镜像
 aa=$(docker images|grep yhc/eschool|awk '{print $1}')
 if [ "$aa" != "" ] ; then
