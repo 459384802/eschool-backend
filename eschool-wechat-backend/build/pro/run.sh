@@ -16,4 +16,4 @@ docker rm -f $aa
 fi
 echo run new CONTAINER ...
 # 启动容器
-docker run -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime -v /data/logs/eschool-wechat-backend:/logs -d --name eschool -p 80:80 --restart=always yhc/eschool:test
+docker run -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime -v /data/logs/eschool-wechat-backend:/logs -d --name eschool -p 80:80 --restart=always yhc/eschool
