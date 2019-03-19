@@ -1,11 +1,17 @@
 #!/bin/sh
 cd /root/docker_data/dockerfile/eschool-wechat-backend
+# 删除原来的镜像
+aa=$(docker images|grep yhc/eschool|awk '{print $1}')
+if [ "$aa" != "" ] ; then
+echo delete image $aa ...
+docker rmi $aa
+fi
 # 使用当前目录下的dockerfile构建镜像
 docker build -t yhc/eschool:test .
 # 删除原来的容器
 aa=$(docker ps -a|grep eschool|awk '{print $1}')
 if [ "$aa" != "" ] ; then
-echo delete $aa ...
+echo delete container $aa ...
 docker rm -f $aa
 fi
 echo run new CONTAINER ...

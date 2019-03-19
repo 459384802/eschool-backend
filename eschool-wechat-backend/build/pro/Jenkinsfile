@@ -35,7 +35,7 @@ pipeline {
 				  // 待发送到的远程服务器地址的目录，相对于ssh连接到服务器后的当前路径（这个当前路径是在系统配置里配置ssh配好的）
                   remoteDirectory: "dockerfile/eschool-wechat-backend/",
                   // 发送完后在远程服务器执行脚本run.sh（run.sh是由上面发送到远程服务器的，相对路径是相对于当前用户目录的路径）
-                  execCommand: "cd /root/docker_data/dockerfile/eschool-wechat-backend && chmod +x run.sh && ./run.sh"
+                  execCommand: "cd /root/dockerfile/eschool-wechat-backend && chmod +x run.sh && ./run.sh"
                 )
 	          ],
 	          usePromotionTimestamp: false,
