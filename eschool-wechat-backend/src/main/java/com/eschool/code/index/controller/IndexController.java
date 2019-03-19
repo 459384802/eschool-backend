@@ -16,6 +16,6 @@ public class IndexController {
 
     @GetMapping("/list")
     public String list(@RequestParam(required = false) String title){
-        return "标题pro：" + title;
+        return "标题：" + title;
     }
 }
