@@ -11,5 +11,6 @@
 
     <modules>
         <module>eschool-wechat-backend</module>
+        <module>code-generator</module>
     </modules>
 </project>

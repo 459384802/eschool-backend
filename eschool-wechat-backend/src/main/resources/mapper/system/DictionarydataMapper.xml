@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eschool.core.system.mapper.DictionarydataMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.eschool.core.system.entity.DictionarydataEntity" id="dictionarydataMap">
+        <result property="id" column="id"/>
+        <result property="dictName" column="dict_name"/>
+        <result property="dictType" column="dict_type"/>
+        <result property="dictdataName" column="dictdata_name"/>
+        <result property="dictdataValue" column="dictdata_value"/>
+        <result property="dictdataDesc" column="dictdata_desc"/>
+    </resultMap>
+
+
+</mapper>

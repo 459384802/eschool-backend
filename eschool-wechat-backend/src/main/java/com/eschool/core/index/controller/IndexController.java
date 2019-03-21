@@ -1,4 +1,4 @@
-package com.eschool.code.index.controller;
+package com.eschool.core.index.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -16,4 +16,21 @@ public class Constant {
 	 */
 	public static final Integer DELETE_STATUS_DELETED = 1;
 
+	/**
+	 * 任务状态：0-待接单
+	 */
+	public static final Integer TASK_STATUS_WAIT = 0;
+	/**
+	 * 任务状态：1-进行中
+	 */
+	public static final Integer TASK_STATUS_DOING = 1;
+	/**
+	 * 任务状态：2-已完成
+	 */
+	public static final Integer TASK_STATUS_FINISHED = 2;
+	/**
+	 * 任务状态：3-已确认
+	 */
+	public static final Integer TASK_STATUS_CONFIRMED = 3;
+
 }

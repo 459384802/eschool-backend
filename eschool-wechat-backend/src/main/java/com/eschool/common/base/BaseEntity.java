@@ -18,7 +18,7 @@ import java.util.Date;
 @Data
 public class BaseEntity implements Serializable {
     @TableId
-    private Long id;
+    private Integer id;
     /**
      * 删除状态，0正常，1为逻辑删除
      */

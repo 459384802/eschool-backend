@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eschool.core.message.mapper.MessageMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.eschool.core.message.entity.MessageEntity" id="messageMap">
+        <result property="id" column="id"/>
+        <result property="taskId" column="task_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userSchoolName" column="user_school_name"/>
+        <result property="userWechatName" column="user_wechat_name"/>
+        <result property="userWechatHeadImage" column="user_wechat_head_image"/>
+        <result property="replyerUserId" column="replyer_user_id"/>
+        <result property="replyerWechatName" column="replyer_wechat_name"/>
+        <result property="message" column="message"/>
+        <result property="deleteStatus" column="delete_status"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>

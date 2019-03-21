@@ -4,8 +4,9 @@
 <configuration status="INFO">
     <!-- 全局参数 -->
     <Properties>
-        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1}:%L -%m%n</Property>
-        <Property name="displayName">eschool-wechat</Property>
+        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c:%L -%m%n</Property>
+        <Property name="displayName">eschool</Property>
+        <Property name="log_path">logs</Property>
     </Properties>
     <Appenders>
         <Console name="console" target="SYSTEM_OUT" follow="true">
@@ -13,37 +14,64 @@
                 <pattern>${pattern}</pattern>
             </PatternLayout>
         </Console>
-        <!-- 文件 每次运行程序会自动清空，由append属性决定 -->
-        <File name="error" fileName="logs/${displayName}_error.log" append="false">
-            <!-- 指定error 级别的日志 -->
-            <ThresholdFilter level="ERROR" onMatch="ACCEPT"
-                             onMismatch="DENY" />
-            <PatternLayout>
-                <pattern>${pattern}</pattern>
-            </PatternLayout>
-        </File>
-        <!-- 滚动文件 -->
-        <RollingFile name="rollingFile" fileName="logs/${displayName}.log"
-                     filePattern="${displayName}_%d{yyyy-MM-dd}.log">
-            <PatternLayout>
-                <pattern>${pattern}</pattern>
-            </PatternLayout>
-            <!-- 按大小划分 -->
-            <SizeBasedTriggeringPolicy size="50 MB" />
+
+        <RollingFile name="infoFile" fileName="${log_path}/${displayName}.log"
+                     filePattern="${log_path}/${date:yyyy-MM}/${displayName}-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Filters>
+                <ThresholdFilter level="INFO" />
+                <ThresholdFilter level="WARN" onMatch="DENY"
+                                 onMismatch="NEUTRAL" />
+            </Filters>
+            <Policies>
+                <!-- 归档每天的文件 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <!-- 按大小划分 -->
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!-- 限制每天文件个数 -->
+            <DefaultRolloverStrategy compressionLevel="0" max="10"/>
+        </RollingFile>
+        <RollingFile name="warnFile" fileName="${log_path}/${displayName}_warn.log"
+                     filePattern="${log_path}/${date:yyyy-MM}/${displayName}-warn-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Filters>
+                <ThresholdFilter level="WARN"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <Policies>
+                <!-- 归档每天的文件 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <!-- 按大小划分 -->
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!-- 限制每天文件个数 -->
+            <DefaultRolloverStrategy compressionLevel="0" max="10"/>
+        </RollingFile>
+        <RollingFile name="errorFile" fileName="${log_path}/${displayName}_error.log"
+                     filePattern="${log_path}/${date:yyyy-MM}/${displayName}-error-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${pattern}"/>
+            <ThresholdFilter level="ERROR" />
+            <Policies>
+                <!-- 归档每天的文件 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <!-- 按大小划分 -->
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!-- 限制每天文件个数 -->
+            <DefaultRolloverStrategy compressionLevel="0" max="10"/>
         </RollingFile>
     </Appenders>
+
     <Loggers>
-        <!-- <Logger name="org.apache.catalina.util.LifecycleBase" level="ERROR"
-            /> <Logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN"
-            /> <Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"
-            /> -->
         <Logger name="springfox.documentation" level="WARN" />
         <Logger name="org.springframework" level="WARN" />
-        <Logger name="com.emproject" level="DEBUG" />
-        <Root level="info">
+        <Logger name="com.eschool" level="DEBUG" />
+        <Root level="INFO">
             <AppenderRef ref="console"/>
-            <AppenderRef ref="error"/>
-            <AppenderRef ref="rollingFile"/>
+            <AppenderRef ref="infoFile"/>
+            <AppenderRef ref="warnFile"/>
+            <AppenderRef ref="errorFile"/>
         </Root>
     </Loggers>
 </configuration>
