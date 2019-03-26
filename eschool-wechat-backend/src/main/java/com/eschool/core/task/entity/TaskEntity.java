@@ -26,6 +26,10 @@ public class TaskEntity extends BaseEntity {
      */
 	private Integer userId;
     /**
+     * 所属学校/地区 id
+     */
+	private Integer schoolId;
+    /**
      * 任务标题
      */
 	private String taskTitle;

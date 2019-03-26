@@ -1,15 +1,18 @@
 package com.eschool.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * 日期处理
@@ -130,6 +133,49 @@ public class DateUtils {
 
         return timeStampToString(timeStamp, DAY_MAX_TIME);
     }
-    
-    
+
+    /**
+     * 获取两个时间的间隔，返回字符串形式
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public static String getTimeIntervalToStr(Date startDate, Date endDate) {
+        //结束时间加一分钟（向上取整到分）
+        Calendar endTime = Calendar.getInstance();
+        endTime.setTime(endDate);
+        endTime.add(Calendar.MINUTE,1);
+        List<Integer> timeList = getTimeInterval(startDate,endTime.getTime());
+        StringBuffer sb = new StringBuffer();
+        if(timeList.get(0) > 0){
+            sb.append(timeList.get(0)).append("年");
+        }
+        if(timeList.get(1) > 0){
+            sb.append(timeList.get(1)).append("月");
+        }
+        if(timeList.get(2) > 0){
+            sb.append(timeList.get(2)).append("日");
+        }
+        if(timeList.get(3) > 0){
+            sb.append(timeList.get(3)).append("小时");
+        }
+        if(timeList.get(4) > 0){
+            sb.append(timeList.get(4)).append("分");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 获取两个时间的间隔
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public static List<Integer> getTimeInterval(Date startDate, Date endDate) {
+        if(startDate == null || endDate == null || startDate.getTime() > endDate.getTime()){
+            return null;
+        }
+        String period = DurationFormatUtils.formatPeriod(startDate.getTime(), endDate.getTime(), "yyyy-MM-dd-HH-mm-ss");
+        return Arrays.stream(period.split("-")).map(item -> Integer.parseInt(item)).collect(Collectors.toList());
+    }
 }

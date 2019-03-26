@@ -1,5 +1,6 @@
 package com.eschool.core.task.mapper;
 
+import com.eschool.core.task.dto.TaskShowDTO;
 import com.eschool.core.task.entity.TaskEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,5 +14,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface TaskMapper extends BaseMapper<TaskEntity> {
-	
+    /**
+     * 根据id获取详情信息
+     * @param id
+     * @return
+     */
+    TaskShowDTO getInfoById(Integer id);
 }

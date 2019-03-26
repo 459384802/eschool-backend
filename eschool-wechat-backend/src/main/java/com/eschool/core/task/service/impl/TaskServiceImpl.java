@@ -4,6 +4,7 @@ import com.eschool.common.exception.CustomException;
 import com.eschool.common.utils.Constant;
 import com.eschool.common.utils.ContextUtil;
 import com.eschool.core.task.dto.TaskFormDTO;
+import com.eschool.core.task.dto.TaskShowDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, TaskEntity> impleme
         }
 
 
+    }
+
+    @Override
+    public TaskShowDTO getInfoById(Integer id) {
+        return taskMapper.getInfoById(id);
     }
 }

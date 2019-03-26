@@ -21,7 +21,7 @@ public class TaskController {
     private TaskService taskService;
 
     /**
-     * 发布或任务
+     * 发布任务
      * @param dto
      */
     @PostMapping("/save")
@@ -40,6 +40,6 @@ public class TaskController {
 
     @GetMapping("/show/{id}")
     public TaskShowDTO show(@PathVariable("id") Integer id){
-        return null;
+        return taskService.getInfoById(id);
     }
 }

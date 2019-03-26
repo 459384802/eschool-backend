@@ -2,6 +2,7 @@ package com.eschool.core.task.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.eschool.core.task.dto.TaskFormDTO;
+import com.eschool.core.task.dto.TaskShowDTO;
 import com.eschool.core.task.entity.TaskEntity;
 
 import java.util.Map;
@@ -19,5 +20,12 @@ public interface TaskService extends IService<TaskEntity> {
      * @param dto
      */
     void saveOrUpdateTask(TaskFormDTO dto);
+
+    /**
+     * 根据id获取详情信息
+     * @param id
+     * @return
+     */
+    TaskShowDTO getInfoById(Integer id);
 }
 

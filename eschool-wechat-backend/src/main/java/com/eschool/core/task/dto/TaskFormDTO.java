@@ -31,6 +31,9 @@ public class TaskFormDTO{
      */
     @NotNull(message = "任务类型不能为空")
 	private Integer taskType;
+
+    @NotNull(message = "地区不能为空")
+	private Integer schoolId;
     /**
      * 任务详细内容
      */

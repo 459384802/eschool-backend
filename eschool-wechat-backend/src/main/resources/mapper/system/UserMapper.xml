@@ -14,6 +14,7 @@
         <result property="gender" column="gender"/>
         <result property="wechatLocation" column="wechat_location"/>
         <result property="wechatHeadImage" column="wechat_head_image"/>
+        <result property="creditLine" column="credit_line"/>
         <result property="deleteStatus" column="delete_status"/>
         <result property="createUser" column="create_user"/>
         <result property="createTime" column="create_time"/>

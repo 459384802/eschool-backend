@@ -51,5 +51,29 @@ public class UserEntity extends BaseEntity {
      * 微信头像访问地址
      */
 	private String wechatHeadImage;
+    /**
+     * 用户信用度
+     */
+	private Integer creditLine;
+    /**
+     * 院系
+     */
+	private String faculty;
+    /**
+     * 专业
+     */
+	private String major;
+    /**
+     * 真实姓名
+     */
+	private String realName;
+    /**
+     * 年级
+     */
+	private String userClass;
+    /**
+     * 联系电话
+     */
+	private String phone;
 
 }

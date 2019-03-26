@@ -2,6 +2,7 @@ package com.eschool.core.task.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eschool.common.base.BaseEntity;
+import com.eschool.common.utils.DateUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,6 +31,8 @@ public class TaskShowDTO {
      * 任务标题
      */
 	private String taskTitle;
+
+	private String schoolName;
     /**
      * 任务类型：关联数据字典yhc_dictionarydata，dict_type=taskType
      */
@@ -49,7 +52,7 @@ public class TaskShowDTO {
     /**
      * 酬金
      */
-	private BigDecimal fee;
+	private String fee;
     /**
      * 联系方式
      */
@@ -77,10 +80,10 @@ public class TaskShowDTO {
     private String createTimeInterval;
 
     public String getTimeRemaining() {
-        return timeRemaining;
+        return DateUtils.getTimeIntervalToStr(new Date(),deadlineTime);
     }
 
     public String getCreateTimeInterval() {
-        return createTimeInterval;
+        return DateUtils.getTimeIntervalToStr(this.getCreateTime(),new Date());
     }
 }
