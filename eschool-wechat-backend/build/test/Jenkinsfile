@@ -35,13 +35,27 @@ pipeline {
 				  // 待发送到的远程服务器地址的目录，相对于ssh连接到服务器后的当前路径（这个当前路径是在系统配置里配置ssh配好的）
                   remoteDirectory: "dockerfile/eschool-wechat-backend/",
 				  // 发送完后在远程服务器执行脚本run.sh（run.sh是由上面发送到远程服务器的，相对路径是相对于当前用户目录的路径）
-                  execCommand: "cd dockerfile/eschool-wechat-backend && chmod +x run.sh && docker build -t yhc/eschool . && aa=$(docker ps -a|grep eschool|awk '{print $1}')
-                                                                                           if [ "$aa" != "" ] ; then
-                                                                                           echo delete container $aa ...
-                                                                                           docker rm -f $aa
-                                                                                           fi
-                                                                                           echo run new CONTAINER ...
-                                                                                           docker run -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime -v /data/logs/eschool-wechat-backend:/logs -d --name eschool -p 80:80 --restart=always yhc/eschool"
+                  execCommand: "cd dockerfile/eschool-wechat-backend && tee ./run1.sh <<-'EOF'
+                                                                        #!/bin/sh
+                                                                        cd /root/dockerfile/eschool-wechat-backend
+                                                                        # 删除原来的镜像
+                                                                        aa=$(docker images|grep yhc/eschool|awk '{print $1}')
+                                                                        if [ "$aa" != "" ] ; then
+                                                                        echo delete image $aa ...
+                                                                        docker rmi $aa
+                                                                        fi
+                                                                        # 使用当前目录下的dockerfile构建镜像
+                                                                        docker build -t yhc/eschool .
+                                                                        # 删除原来的容器
+                                                                        aa=$(docker ps -a|grep eschool|awk '{print $1}')
+                                                                        if [ "$aa" != "" ] ; then
+                                                                        echo delete container $aa ...
+                                                                        docker rm -f $aa
+                                                                        fi
+                                                                        echo run new CONTAINER ...
+                                                                        # 启动容器
+                                                                        docker run -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime -v /data/logs/eschool-wechat-backend:/logs -d --name eschool -p 80:80 --restart=always yhc/eschool
+                                                                        EOF && ./run1.sh"
                 )
 	          ],
 	          usePromotionTimestamp: false,
