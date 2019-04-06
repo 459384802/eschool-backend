@@ -34,8 +34,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
             Object delFlag = getFieldValByName("updateUser", metaObject);
             if (null == delFlag) {
                 //获取当前登录用户
-                Object userId = String.valueOf(ContextUtil.getFromSession("userId"));
-                userId = (userId == null ? "0" : userId).toString();
+                Object userId = ContextUtil.getCurrentUserId();
                 setFieldValByName("updateUser", userId, metaObject);
             }
         } catch (Exception e) {
@@ -45,8 +44,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
             Object delFlag = getFieldValByName("createUser", metaObject);
             if (null == delFlag) {
                 //获取当前登录用户
-                Object userId = String.valueOf(ContextUtil.getFromSession("userId"));
-                userId = (userId == null ? "0" : userId).toString();
+                Object userId = ContextUtil.getCurrentUserId();
                 setFieldValByName("createUser", userId, metaObject);
             }
         } catch (Exception e) {
@@ -85,8 +83,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
         try {
             Object delFlag = getFieldValByName("updateUser", metaObject);
             if (null == delFlag) {
-                Object userId = String.valueOf(ContextUtil.getFromSession("userId"));
-                userId = (userId == null ? "0" : userId).toString();
+                Object userId = ContextUtil.getCurrentUserId();
                 setFieldValByName("updateUser", userId, metaObject);
             }
         } catch (Exception e) {

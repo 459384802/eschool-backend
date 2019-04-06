@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">  
+  	
+  	<!-- 达到内存上限后缓存文件保存位置 -->
+    <diskStore path="/data/ehcache/eshool/user/"/>
+    
+    <!-- 
+	    name="cache_test" 缓存名称  
+	    maxElementsInMemory="10000" 最大内存占用个数，每个代表一个键值对Element，超出后缓存保存至文件  
+	    memoryStoreEvictionPolicy="LRU" 缓存废弃策略，LRU表示最少使用的优先清除，此值对应之前3种策略  
+	    eternal="false"    设定缓存的elements是否永远不过期，true：缓存的数据始终有效
+	    timeToIdleSeconds="3600" 空闲时间，单位秒，超出此时间未使用缓存自动清除，只对eternal为false的有效。默认值0，表示一直可以访问。  
+	    timeToLiveSeconds="3600" 清除时间，单位秒，缓存保留的最长时间  
+	    overflowToDisk="false" 如果内存中数据超过内存限制，是否往硬盘写缓存数据  
+	    maxElementsOnDisk="1000000" 在磁盘上缓存的element的最大数目，默认值为0，表示不限制， overflowToDisk为true时设置
+	    diskPersistent="true"是否在磁盘上持久化。指重启jvm后，数据是否有效。默认为false 
+    -->
+    
+    <!-- 默认配置 
+    <defaultCache   
+        maxElementsInMemory="10000"
+        memoryStoreEvictionPolicy="LRU" 
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120" 
+        overflowToDisk="true"
+        diskPersistent="true"
+    />-->
+    
+    <cache   
+        name="eschool_user"
+        maxElementsInMemory="10000"  
+        memoryStoreEvictionPolicy="LRU"  
+        eternal="false"
+        timeToIdleSeconds="604800"
+        timeToLiveSeconds="604800"
+        overflowToDisk="true"
+        diskPersistent="true"
+     />
+</ehcache>  

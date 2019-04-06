@@ -1,5 +1,6 @@
 package com.eschool.common.utils;
 
+import com.eschool.core.system.entity.UserEntity;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -16,10 +17,18 @@ public class ContextUtil {
 	
 	/**
 	 * @Description: 获取当前登录用户的主键id
-	 * @return 返回Long类型用户id
+	 * @return 返回用户id
 	 */
 	public static Integer getCurrentUserId(){
 		return (Integer)getFromSession("userId");
+	}
+
+	/**
+	 * @Description: 获取当前登录用户的主键id
+	 * @return 返回用户信息
+	 */
+	public static UserEntity getCurrentUserInfo(){
+		return (UserEntity)getFromSession("userInfo");
 	}
 
 	/**

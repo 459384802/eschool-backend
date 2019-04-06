@@ -41,6 +41,9 @@ spring:
 loginUsername: root
 loginPassword: root
 
+weixin:
+  appId: 123
+  appSecret: 5291261
 
 #统一设置eureka instance地址
 #eurekaInstanceIpAddr: ${spring.cloud.client.ip-address}

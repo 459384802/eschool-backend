@@ -13,6 +13,11 @@ import java.util.Map;
  * @date 2019-03-21 16:21:11
  */
 public interface UserService extends IService<UserEntity> {
-
+    /**
+     * 根据微信的openid获取用户信息
+     * @param openid
+     * @return
+     */
+    UserEntity getByOpenId(String openid);
 }
 

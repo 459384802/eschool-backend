@@ -20,6 +20,10 @@ import java.util.Date;
 public class UserEntity extends BaseEntity {
 
     /**
+     * 微信用户的唯一标识openid
+     */
+    private String openid;
+    /**
      * 所属院校id
      */
 	private Integer schoolId;
@@ -38,19 +42,15 @@ public class UserEntity extends BaseEntity {
     /**
      * 微信名称
      */
-	private String wechatName;
+	private String nickName;
     /**
      * 性别：1-男 2-女
      */
 	private Integer gender;
     /**
-     * 微信位置信息
-     */
-	private String wechatLocation;
-    /**
      * 微信头像访问地址
      */
-	private String wechatHeadImage;
+	private String headImage;
     /**
      * 用户信用度
      */

@@ -15,7 +15,7 @@ import javax.xml.ws.WebServiceException;
 /**
  * @Auther: Aaron
  * @Date: 2018-11-14 09:11:56
- * @Description: 异常处理器
+ * @Description: 全局异常处理器
  */
 @RestControllerAdvice
 @Slf4j
@@ -30,7 +30,13 @@ public class CustomExceptionHandler {
 		log.error("业务系统异常", e);
 		return new DataResponse<>(500, e.getMessage());
 	}
-	
+
+	@ExceptionHandler(LoginException.class)
+	public DataResponse<?> handleLoginException(LoginException e){
+		log.error("登录异常", e);
+		return new DataResponse<>(500, "请先登录");
+	}
+
 	@ExceptionHandler(RuntimeException.class)
 	public DataResponse<?> handleException(RuntimeException e){
 		if(e instanceof IndexOutOfBoundsException) {

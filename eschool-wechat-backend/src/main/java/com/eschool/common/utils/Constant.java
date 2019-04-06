@@ -1,11 +1,13 @@
 package com.eschool.common.utils;
 
-import java.util.*;
-
 /**
  * 常量
  */
 public class Constant {
+	/**
+	 * 微信小程序登录凭证校验
+	 */
+	public static final String URL_CODE2SESSION = "https://api.weixin.qq.com/sns/jscode2session";
 	
 	/**
 	 * 删除状态：0-正常
@@ -32,5 +34,4 @@ public class Constant {
 	 * 任务状态：3-已确认
 	 */
 	public static final Integer TASK_STATUS_CONFIRMED = 3;
-
 }
