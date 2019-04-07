@@ -3,7 +3,6 @@
 
 <mapper namespace="com.eschool.core.task.mapper.TaskMapper">
 
-	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.eschool.core.task.dto.TaskShowDTO" id="showMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
@@ -16,11 +15,57 @@
         <result property="phone" column="phone"/>
         <result property="deadlineTime" column="deadline_time"/>
         <result property="taskStatus" column="task_status"/>
+    </resultMap>
 
+    <resultMap type="com.eschool.core.task.dto.TaskListDTO" id="listMap">
+        <result property="id" column="id"/>
+        <result property="headImage" column="head_image"/>
+        <result property="taskTitle" column="task_title"/>
+        <result property="taskType" column="task_type"/>
+        <result property="taskGender" column="task_gender"/>
+        <result property="fee" column="fee"/>
+        <result property="deadlineTime" column="deadline_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="taskStatus" column="task_status"/>
     </resultMap>
 
     <select id="getInfoById" resultMap="showMap">
 
+    </select>
+
+    <select id="queryForList" resultMap="listMap">
+        select
+            self.id,
+            self.head_image,
+            self.task_title,
+            self.task_type,
+            self.task_gender,
+            self.fee,
+            self.deadline_time,
+            self.create_time,
+            self.task_status
+        from yhc_task self
+        where self.delete_status=0
+        <if test="params.taskType != null and params.taskType != 0">
+            and self.task_type=#{params.taskType}
+        </if>
+        <if test="params.taskGender != null and params.taskGender != 0">
+            and self.task_gender=#{params.taskGender}
+        </if>
+        order by
+        <if test="params.timeOrder == 1">
+            self.deadline_time asc,
+        </if>
+        <if test="params.timeOrder == 2">
+            self.deadline_time desc,
+        </if>
+        <if test="params.moneyOrder == 1">
+            self.fee asc,
+        </if>
+        <if test="params.moneyOrder == 2">
+            self.fee desc,
+        </if>
+        self.task_status asc
     </select>
 
 </mapper>

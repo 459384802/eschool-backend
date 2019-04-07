@@ -34,7 +34,7 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(LoginException.class)
 	public DataResponse<?> handleLoginException(LoginException e){
 		log.error("登录异常", e);
-		return new DataResponse<>(500, "请先登录");
+		return new DataResponse<>(501, "token验证不通过");
 	}
 
 	@ExceptionHandler(RuntimeException.class)

@@ -1,7 +1,10 @@
 package com.eschool.core.task.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.eschool.core.task.dto.TaskFormDTO;
+import com.eschool.core.task.dto.TaskListDTO;
+import com.eschool.core.task.dto.TaskSearchDTO;
 import com.eschool.core.task.dto.TaskShowDTO;
 import com.eschool.core.task.entity.TaskEntity;
 
@@ -27,5 +30,12 @@ public interface TaskService extends IService<TaskEntity> {
      * @return
      */
     TaskShowDTO getInfoById(Integer id);
+
+    /**
+     * 分页获取任务列表信息
+     * @param dto
+     * @return
+     */
+    IPage<TaskListDTO> queryForList(TaskSearchDTO dto);
 }
 

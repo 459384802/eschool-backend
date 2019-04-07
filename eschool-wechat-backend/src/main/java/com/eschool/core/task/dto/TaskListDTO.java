@@ -1,10 +1,7 @@
 package com.eschool.core.task.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.eschool.common.base.BaseEntity;
 import com.eschool.common.utils.DateUtils;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,50 +14,28 @@ import java.util.Date;
  * @date 2019-03-21 16:28:25
  */
 @Data
-public class TaskShowDTO {
+public class TaskListDTO {
     private Integer id;
-    /**
-     * 任务发起人id
-     */
-	private Integer userId;
     /**
      * 任务发起人微信头像访问地址
      */
     private String headImage;
     /**
-     * 任务发起人的微信名称
-     */
-	private String userWechatName;
-    /**
      * 任务标题
      */
 	private String taskTitle;
-
-	private String schoolName;
     /**
      * 任务类型：关联数据字典yhc_dictionarydata，dict_type=taskType
      */
 	private Integer taskType;
     /**
-     * 任务详细内容
-     */
-	private String taskContent;
-    /**
      * 性别限制：0-男女不限 1-仅限男性 2-仅限女性
      */
 	private Integer taskGender;
     /**
-     * 备注
-     */
-	private String remark;
-    /**
      * 酬金
      */
-	private String fee;
-    /**
-     * 联系方式
-     */
-	private String phone;
+	private BigDecimal fee;
     /**
      * 任务有效截止时间
      */
@@ -84,10 +59,10 @@ public class TaskShowDTO {
     private String createTimeInterval;
 
     public String getTimeRemaining() {
-        return DateUtils.getTimeIntervalToStr(new Date(),deadlineTime);
+        return DateUtils.getTimeIntervalToStr(new Date(), deadlineTime);
     }
 
     public String getCreateTimeInterval() {
-        return DateUtils.getTimeIntervalToStr(this.getCreateTime(),new Date());
+        return DateUtils.getSimpleTimeIntervalToStr(this.getCreateTime(), new Date());
     }
 }

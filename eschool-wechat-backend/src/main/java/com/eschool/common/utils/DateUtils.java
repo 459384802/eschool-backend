@@ -135,12 +135,18 @@ public class DateUtils {
     }
 
     /**
-     * 获取两个时间的间隔，返回字符串形式
+     * 获取两个时间的间隔，返回字符串形式，如果开始时间 > 结束时间 则返回0
      * @param startDate
      * @param endDate
      * @return
      */
     public static String getTimeIntervalToStr(Date startDate, Date endDate) {
+        if(startDate == null || endDate == null){
+            return "";
+        }
+        if(startDate.getTime() > endDate.getTime()){
+            return "0";
+        }
         //结束时间加一分钟（向上取整到分）
         Calendar endTime = Calendar.getInstance();
         endTime.setTime(endDate);
@@ -154,7 +160,7 @@ public class DateUtils {
             sb.append(timeList.get(1)).append("月");
         }
         if(timeList.get(2) > 0){
-            sb.append(timeList.get(2)).append("日");
+            sb.append(timeList.get(2)).append("天");
         }
         if(timeList.get(3) > 0){
             sb.append(timeList.get(3)).append("小时");
@@ -172,10 +178,47 @@ public class DateUtils {
      * @return
      */
     public static List<Integer> getTimeInterval(Date startDate, Date endDate) {
-        if(startDate == null || endDate == null || startDate.getTime() > endDate.getTime()){
-            return null;
-        }
         String period = DurationFormatUtils.formatPeriod(startDate.getTime(), endDate.getTime(), "yyyy-MM-dd-HH-mm-ss");
         return Arrays.stream(period.split("-")).map(item -> Integer.parseInt(item)).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取两个时间的间隔，0：< 5分钟 n分钟前： > 5分钟 && < 1小时 ..........
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public static String getSimpleTimeIntervalToStr(Date startDate, Date endDate) {
+        if(startDate == null || endDate == null){
+            return "";
+        }
+        if(startDate.getTime() > endDate.getTime()){
+            return "0";
+        }
+        //结束时间加一分钟（向上取整到分）
+        Calendar endTime = Calendar.getInstance();
+        endTime.setTime(endDate);
+        endTime.add(Calendar.MINUTE,1);
+        List<Integer> timeList = getTimeInterval(startDate,endTime.getTime());
+        if(timeList.get(0) > 0){
+            return timeList.get(0) + "年前";
+        }
+        if(timeList.get(1) > 0){
+            return timeList.get(1) + "个月前";
+        }
+        if(timeList.get(2) > 0){
+            return timeList.get(2) + "天前";
+        }
+        if(timeList.get(3) > 0){
+            return timeList.get(3) + "小时前";
+        }
+        if(timeList.get(4) > 0){
+            if(timeList.get(4) < 5){
+                return "0";
+            }else{
+                return timeList.get(4) + "分钟前";
+            }
+        }
+        return "";
     }
 }

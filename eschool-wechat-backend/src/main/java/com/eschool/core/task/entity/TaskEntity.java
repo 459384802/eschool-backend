@@ -26,6 +26,10 @@ public class TaskEntity extends BaseEntity {
      */
 	private Integer userId;
     /**
+     * 任务发起人微信头像访问地址
+     */
+	private String headImage;
+    /**
      * 所属学校/地区 id
      */
 	private Integer schoolId;
