@@ -28,4 +28,11 @@ public class OrderEntity extends BaseEntity {
      */
 	private Integer userId;
 
+    public OrderEntity() {
+    }
+
+    public OrderEntity(Integer taskId, Integer userId) {
+        this.taskId = taskId;
+        this.userId = userId;
+    }
 }

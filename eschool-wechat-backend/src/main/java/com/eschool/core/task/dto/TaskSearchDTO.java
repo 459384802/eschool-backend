@@ -19,4 +19,6 @@ public class TaskSearchDTO extends PageBaseDTO {
     private Integer taskGender;
     private Integer timeOrder;
     private Integer moneyOrder;
+    private Integer schoolId;
+    private Integer userId;
 }

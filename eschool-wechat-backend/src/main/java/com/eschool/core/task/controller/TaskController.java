@@ -1,6 +1,7 @@
 package com.eschool.core.task.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.eschool.common.utils.ContextUtil;
 import com.eschool.core.task.dto.TaskFormDTO;
 import com.eschool.core.task.dto.TaskListDTO;
 import com.eschool.core.task.dto.TaskSearchDTO;
@@ -8,6 +9,8 @@ import com.eschool.core.task.dto.TaskShowDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.eschool.core.task.service.TaskService;
+
+import java.util.List;
 
 
 /**
@@ -28,8 +31,8 @@ public class TaskController {
      * @param dto
      */
     @PostMapping("/save")
-    public void save(@RequestBody TaskFormDTO dto){
-        taskService.saveOrUpdateTask(dto);
+    public Integer save(@RequestBody TaskFormDTO dto){
+        return taskService.saveOrUpdateTask(dto);
     }
 
     /**
@@ -37,8 +40,8 @@ public class TaskController {
      * @param dto
      */
     @PostMapping("/edit")
-    public void edit(@RequestBody TaskFormDTO dto){
-        taskService.saveOrUpdateTask(dto);
+    public Integer edit(@RequestBody TaskFormDTO dto){
+        return taskService.saveOrUpdateTask(dto);
     }
 
     /**
@@ -46,8 +49,8 @@ public class TaskController {
      * @param id
      * @return
      */
-    @GetMapping("/show/{id}")
-    public TaskShowDTO show(@PathVariable("id") Integer id){
+    @GetMapping("/show")
+    public TaskShowDTO show(@RequestParam Integer id){
         return taskService.getInfoById(id);
     }
 
@@ -55,6 +58,15 @@ public class TaskController {
     public IPage<TaskListDTO> list(@RequestBody TaskSearchDTO dto){
         IPage<TaskListDTO> page = taskService.queryForList(dto);
         return page;
+    }
+
+    @PostMapping("/release/list")
+    public List<TaskListDTO> release(){
+        TaskSearchDTO dto = new TaskSearchDTO();
+        dto.setPageSize(-1);
+        dto.setUserId(ContextUtil.getCurrentUserId());
+        IPage<TaskListDTO> page = taskService.queryForList(dto);
+        return page.getRecords();
     }
 
 }

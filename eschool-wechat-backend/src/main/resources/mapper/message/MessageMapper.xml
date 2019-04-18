@@ -7,12 +7,12 @@
     <resultMap type="com.eschool.core.message.entity.MessageEntity" id="messageMap">
         <result property="id" column="id"/>
         <result property="taskId" column="task_id"/>
-        <result property="userId" column="user_id"/>
-        <result property="userSchoolName" column="user_school_name"/>
-        <result property="userWechatName" column="user_wechat_name"/>
-        <result property="userWechatHeadImage" column="user_wechat_head_image"/>
+        <result property="senderUserId" column="sender_user_id"/>
+        <result property="senderSchoolName" column="sender_school_name"/>
+        <result property="senderNickName" column="sender_nick_name"/>
+        <result property="senderHeadImage" column="sender_head_image"/>
         <result property="replyerUserId" column="replyer_user_id"/>
-        <result property="replyerWechatName" column="replyer_wechat_name"/>
+        <result property="replyerNickName" column="replyer_nick_name"/>
         <result property="message" column="message"/>
         <result property="deleteStatus" column="delete_status"/>
         <result property="createUser" column="create_user"/>

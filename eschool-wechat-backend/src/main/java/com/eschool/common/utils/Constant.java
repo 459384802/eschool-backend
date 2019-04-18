@@ -17,6 +17,14 @@ public class Constant {
 	 * 删除状态：1-已逻辑删除
 	 */
 	public static final Integer DELETE_STATUS_DELETED = 1;
+	/**
+	 * 有效状态：0-无效
+	 */
+	public static final Integer VALID_STATUS_INVALID = 0;
+	/**
+	 * 有效状态：1-有效
+	 */
+	public static final Integer VALID_STATUS_VALID = 1;
 
 	/**
 	 * 任务状态：0-待接单

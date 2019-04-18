@@ -28,7 +28,7 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(CustomException.class)
 	public DataResponse<?> handleCustomException(CustomException e){
 		log.error("业务系统异常", e);
-		return new DataResponse<>(500, e.getMessage());
+		return new DataResponse<>(502, e.getMessage());
 	}
 
 	@ExceptionHandler(LoginException.class)

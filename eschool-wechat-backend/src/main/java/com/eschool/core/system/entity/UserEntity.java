@@ -2,6 +2,7 @@ package com.eschool.core.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eschool.common.base.BaseEntity;
+import com.eschool.core.system.dto.UserFormDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -44,6 +45,10 @@ public class UserEntity extends BaseEntity {
      */
 	private String nickName;
     /**
+     * 微信号
+     */
+	private String weixinNumber;
+    /**
      * 性别：1-男 2-女
      */
 	private Integer gender;
@@ -76,4 +81,29 @@ public class UserEntity extends BaseEntity {
      */
 	private String phone;
 
+    public UserEntity() {
+    }
+
+    public UserEntity(UserFormDTO dto) {
+        this.setProperty(dto);
+    }
+
+    public void setProperty(UserFormDTO dto) {
+        this.schoolId = dto.getSchoolId();
+        this.weixinNumber = dto.getWeixinNumber();
+        this.schoolName = dto.getSchoolName();
+        this.username = dto.getUsername();
+        this.password = dto.getPassword();
+        this.nickName = dto.getNickName();
+        this.gender = dto.getGender();
+        this.headImage = dto.getHeadImage();
+        this.creditLine = dto.getCreditLine();
+        this.faculty = dto.getFaculty();
+        this.major = dto.getMajor();
+        this.realName = dto.getRealName();
+        this.userClass = dto.getUserClass();
+        this.phone = dto.getPhone();
+        this.setUpdateTime(null);
+        this.setUpdateUser(null);
+    }
 }

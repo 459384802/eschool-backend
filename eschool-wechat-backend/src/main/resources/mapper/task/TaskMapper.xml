@@ -3,9 +3,63 @@
 
 <mapper namespace="com.eschool.core.task.mapper.TaskMapper">
 
+    <select id="queryForList" resultMap="listMap">
+        select
+            self.*
+        FROM
+        (
+            select
+                self.id,
+                self.head_image,
+                self.task_title,
+                self.task_type,
+                self.task_gender,
+                self.fee,
+                self.deadline_time,
+                self.create_time,
+                self.task_status,
+                IF(self.deadline_time > NOW(),0,1) timeOrder
+            from yhc_task self
+            where self.delete_status=0 and self.valid_status=1
+            <if test="params.taskType != null and params.taskType != 0">
+                and self.task_type=#{params.taskType}
+            </if>
+            <if test="params.taskGender != null and params.taskGender != 0">
+                and self.task_gender=#{params.taskGender}
+            </if>
+            <if test="params.userId != null">
+                and self.user_id=#{params.userId}
+            </if>
+            <if test="params.schoolId != null and params.schoolId != 0">
+                and self.school_id=#{params.schoolId}
+            </if>
+        ) self
+        ORDER BY
+        <!--未过期的排前面-->
+        <if test="params.timeOrder == 0">
+            self.timeOrder asc,
+        </if>
+        <if test="params.timeOrder == 1">
+            self.deadline_time asc,
+        </if>
+        <if test="params.timeOrder == 2">
+            self.deadline_time desc,
+        </if>
+        <if test="params.moneyOrder == 1">
+            self.fee asc,
+        </if>
+        <if test="params.moneyOrder == 2">
+            self.fee desc,
+        </if>
+        self.task_status asc
+    </select>
+
     <resultMap type="com.eschool.core.task.dto.TaskShowDTO" id="showMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
+        <result property="headImage" column="head_image"/>
+        <result property="userNickName" column="nick_name"/>
+        <result property="schoolName" column="school_name"/>
         <result property="taskTitle" column="task_title"/>
         <result property="taskType" column="task_type"/>
         <result property="taskContent" column="task_content"/>
@@ -15,6 +69,21 @@
         <result property="phone" column="phone"/>
         <result property="deadlineTime" column="deadline_time"/>
         <result property="taskStatus" column="task_status"/>
+        <result property="validStatus" column="valid_status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="weixinNumber" column="weixin_number"/>
+        <result property="orderUserId" column="orderUserId"/>
+        <result property="orderNickName" column="orderNickName"/>
+        <collection property="messageList" ofType="com.eschool.core.message.entity.MessageEntity">
+            <result property="id" column="msgId"/>
+            <result property="senderUserId" column="sender_user_id"/>
+            <result property="senderNickName" column="sender_nick_name"/>
+            <result property="senderSchoolName" column="sender_school_name"/>
+            <result property="senderHeadImage" column="sender_head_image"/>
+            <result property="replyerUserId" column="replyer_user_id"/>
+            <result property="replyerNickName" column="replyer_nick_name"/>
+            <result property="content" column="content"/>
+        </collection>
     </resultMap>
 
     <resultMap type="com.eschool.core.task.dto.TaskListDTO" id="listMap">
@@ -30,42 +99,40 @@
     </resultMap>
 
     <select id="getInfoById" resultMap="showMap">
-
-    </select>
-
-    <select id="queryForList" resultMap="listMap">
         select
             self.id,
-            self.head_image,
+            self.user_id,
             self.task_title,
             self.task_type,
+            self.task_content,
             self.task_gender,
+            self.remark,
             self.fee,
+            self.phone,
             self.deadline_time,
             self.create_time,
-            self.task_status
+            self.task_status,
+            self.weixin_number,
+            self.valid_status,
+            u.school_name,
+            u.head_image,
+            u.nick_name,
+            msg.id msgId,
+            msg.sender_user_id,
+            msg.sender_nick_name,
+            msg.sender_school_name,
+            msg.sender_head_image,
+            msg.replyer_user_id,
+            msg.replyer_nick_name,
+            msg.content,
+            receiver.id orderUserId,
+            receiver.nick_name orderNickName
         from yhc_task self
-        where self.delete_status=0
-        <if test="params.taskType != null and params.taskType != 0">
-            and self.task_type=#{params.taskType}
-        </if>
-        <if test="params.taskGender != null and params.taskGender != 0">
-            and self.task_gender=#{params.taskGender}
-        </if>
-        order by
-        <if test="params.timeOrder == 1">
-            self.deadline_time asc,
-        </if>
-        <if test="params.timeOrder == 2">
-            self.deadline_time desc,
-        </if>
-        <if test="params.moneyOrder == 1">
-            self.fee asc,
-        </if>
-        <if test="params.moneyOrder == 2">
-            self.fee desc,
-        </if>
-        self.task_status asc
+        LEFT JOIN yhc_user u ON self.user_id=u.id
+        LEFT JOIN yhc_message msg ON self.id=msg.task_id and self.delete_status=0
+        LEFT JOIN yhc_order o ON self.id=o.task_id and o.delete_status=0
+        LEFT JOIN yhc_user receiver ON o.user_id=receiver.id
+        where self.delete_status=0 and self.id=#{id}
     </select>
 
 </mapper>

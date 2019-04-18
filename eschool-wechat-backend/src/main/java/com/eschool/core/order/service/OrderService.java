@@ -13,6 +13,16 @@ import java.util.Map;
  * @date 2019-03-21 16:31:02
  */
 public interface OrderService extends IService<OrderEntity> {
+    /**
+     * 当前用户接单
+     * @param taskId
+     */
+    void saveOrder(Integer taskId);
 
+    /**
+     * 当前用户取消接单
+     * @param taskId
+     */
+    void removeOrder(Integer taskId);
 }
 

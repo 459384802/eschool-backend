@@ -3,11 +3,13 @@ package com.eschool.core.task.dto;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eschool.common.base.BaseEntity;
 import com.eschool.common.utils.DateUtils;
+import com.eschool.core.message.entity.MessageEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 任务信息
@@ -30,12 +32,14 @@ public class TaskShowDTO {
     /**
      * 任务发起人的微信名称
      */
-	private String userWechatName;
+	private String userNickName;
     /**
      * 任务标题
      */
 	private String taskTitle;
-
+    /**
+     * 所在地区
+     */
 	private String schoolName;
     /**
      * 任务类型：关联数据字典yhc_dictionarydata，dict_type=taskType
@@ -56,7 +60,7 @@ public class TaskShowDTO {
     /**
      * 酬金
      */
-	private String fee;
+	private BigDecimal fee;
     /**
      * 联系方式
      */
@@ -73,6 +77,14 @@ public class TaskShowDTO {
      * 任务状态：0-待接单 1-进行中 2-已完成 3-已确认
      */
 	private Integer taskStatus;
+    /**
+     * 有效状态：0-无效1-有效
+     */
+    private Integer validStatus;
+    /**
+     * 微信号码
+     */
+    private String weixinNumber;
 
     /**
      * 任务有效剩余时间
@@ -82,12 +94,24 @@ public class TaskShowDTO {
      * 当前时间距离创建时间的时间间隔
      */
     private String createTimeInterval;
+    /**
+     * 接单者用户id
+     */
+    private Integer orderUserId;
+    /**
+     * 接单者用户名称
+     */
+    private String orderNickName;
+    /**
+     * 留言信息
+     */
+    private List<MessageEntity> messageList;
 
     public String getTimeRemaining() {
         return DateUtils.getTimeIntervalToStr(new Date(),deadlineTime);
     }
 
     public String getCreateTimeInterval() {
-        return DateUtils.getTimeIntervalToStr(this.getCreateTime(),new Date());
+        return DateUtils.getSimpleTimeIntervalToStr(this.getCreateTime(),new Date());
     }
 }

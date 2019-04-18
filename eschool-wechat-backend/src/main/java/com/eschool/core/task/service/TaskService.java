@@ -22,7 +22,7 @@ public interface TaskService extends IService<TaskEntity> {
      * 发布/编辑任务
      * @param dto
      */
-    void saveOrUpdateTask(TaskFormDTO dto);
+    Integer saveOrUpdateTask(TaskFormDTO dto);
 
     /**
      * 根据id获取详情信息

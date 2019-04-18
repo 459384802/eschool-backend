@@ -26,19 +26,19 @@ public class MessageEntity extends BaseEntity {
     /**
      * 留言者用户id
      */
-	private Integer userId;
+	private Integer senderUserId;
     /**
      * 留言者所属院校名称
      */
-	private String userSchoolName;
+	private String senderSchoolName;
     /**
      * 留言者微信名称
      */
-	private String userWechatName;
+	private String senderNickName;
     /**
      * 留言者微信头像访问地址
      */
-	private String userWechatHeadImage;
+	private String senderHeadImage;
     /**
      * 被回复的用户id，为空表示为直接留言
      */
@@ -46,10 +46,10 @@ public class MessageEntity extends BaseEntity {
     /**
      * 被回复者的微信名称
      */
-	private String replyerWechatName;
+	private String replyerNickName;
     /**
      * 留言信息内容
      */
-	private String message;
+	private String content;
 
 }

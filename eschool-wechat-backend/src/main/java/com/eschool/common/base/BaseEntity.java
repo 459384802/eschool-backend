@@ -29,7 +29,7 @@ public class BaseEntity implements Serializable {
      * 创建人
      */
     @TableField(value = "create_user",fill = FieldFill.INSERT)
-    private String createUser;
+    private Integer createUser;
     /**
      * 创建时间
      */
@@ -39,7 +39,7 @@ public class BaseEntity implements Serializable {
      * 更新人
      */
     @TableField(value = "update_user",fill = FieldFill.INSERT_UPDATE)
-    private String updateUser;
+    private Integer updateUser;
     /**
      * 更新时间
      */

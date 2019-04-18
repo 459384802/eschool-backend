@@ -2,6 +2,7 @@ package com.eschool.core.task.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eschool.common.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,6 +22,7 @@ import java.util.Date;
 public class TaskFormDTO{
     private Integer id;
 
+    private Integer schoolId;
     /**
      * 任务标题
      */
@@ -31,9 +33,6 @@ public class TaskFormDTO{
      */
     @NotNull(message = "任务类型不能为空")
 	private Integer taskType;
-
-    @NotNull(message = "地区不能为空")
-	private Integer schoolId;
     /**
      * 任务详细内容
      */
@@ -58,10 +57,19 @@ public class TaskFormDTO{
     /**
      * 任务有效截止时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	private Date deadlineTime;
     /**
      * 任务状态：0-待接单 1-进行中 2-已完成 3-已确认
      */
     private Integer taskStatus;
+    /**
+     * 有效状态：0-无效 1-有效
+     */
+    private Integer validStatus;
+    /**
+     * 微信号码
+     */
+    private String weixinNumber;
 
 }

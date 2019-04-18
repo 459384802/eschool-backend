@@ -26,13 +26,13 @@ public class TaskEntity extends BaseEntity {
      */
 	private Integer userId;
     /**
+     * 所在学校
+     */
+	private Integer schoolId;
+    /**
      * 任务发起人微信头像访问地址
      */
 	private String headImage;
-    /**
-     * 所属学校/地区 id
-     */
-	private Integer schoolId;
     /**
      * 任务标题
      */
@@ -62,6 +62,10 @@ public class TaskEntity extends BaseEntity {
      */
 	private String phone;
     /**
+     * 有效状态：0-无效1-有效
+     */
+	private Integer validStatus;
+    /**
      * 任务有效截止时间
      */
 	private Date deadlineTime;
@@ -69,6 +73,10 @@ public class TaskEntity extends BaseEntity {
      * 任务状态：0-待接单 1-进行中 2-已完成 3-已确认
      */
 	private Integer taskStatus;
+    /**
+     * 微信号码
+     */
+    private String weixinNumber;
 
     public TaskEntity() {
     }
@@ -83,5 +91,8 @@ public class TaskEntity extends BaseEntity {
         this.phone = dto.getPhone();
         this.deadlineTime = dto.getDeadlineTime();
         this.taskStatus = dto.getTaskStatus();
+        this.weixinNumber = dto.getWeixinNumber();
+        this.validStatus = dto.getValidStatus();
+        this.schoolId = dto.getSchoolId();
     }
 }

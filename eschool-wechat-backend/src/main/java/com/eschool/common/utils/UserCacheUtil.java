@@ -15,19 +15,19 @@ public class UserCacheUtil {
      * @return
      */
     public static UserEntity getUserInfo(Integer userId){
-        Object obj = EhcacheUtil.getInstance().get(EhcacheUtil.USER_CACHE_NAME, userId.toString());
-        if(obj != null && obj instanceof SesssionDataDTO){
-            return ((SesssionDataDTO)obj).getUserInfo();
+        Object obj = EhcacheUtil.getInstance().get(EhcacheUtil.USER_CACHE_NAME, EhcacheUtil.USER_CACHE_PREFIX + userId.toString());
+        if(obj != null && obj instanceof UserEntity){
+            return (UserEntity)obj;
         }
         return null;
     }
 
     /**
      * 将用户信息存放到缓存
-     * @param dto
+     * @param userInfo
      */
-    public static void putSessionData(SesssionDataDTO dto){
-        EhcacheUtil.getInstance().put(EhcacheUtil.USER_CACHE_NAME,EhcacheUtil.USER_CACHE_PREFIX + dto.getUserInfo().getId(),dto);
+    public static void putUserInfo(UserEntity userInfo){
+        EhcacheUtil.getInstance().put(EhcacheUtil.USER_CACHE_NAME,EhcacheUtil.USER_CACHE_PREFIX + userInfo.getId(),userInfo);
     }
 
     /**

@@ -4,6 +4,8 @@ import com.eschool.core.message.entity.MessageEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 留言信息
  * 
@@ -13,5 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface MessageMapper extends BaseMapper<MessageEntity> {
-	
+
 }

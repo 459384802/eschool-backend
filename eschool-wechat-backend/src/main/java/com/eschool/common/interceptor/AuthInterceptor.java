@@ -3,8 +3,12 @@ package com.eschool.common.interceptor;
 import com.eschool.common.exception.LoginException;
 import com.eschool.common.utils.JwtUtil;
 import com.eschool.common.utils.UserCacheUtil;
+import com.eschool.core.login.dto.SesssionDataDTO;
+import com.eschool.core.system.entity.UserEntity;
+import com.eschool.core.system.service.UserService;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -12,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 权限拦截器
@@ -21,6 +24,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class AuthInterceptor implements HandlerInterceptor {
+	@Autowired
+	private UserService userService;
+
 	private List<String> normalUrlList = new ArrayList<>();
 	private List<String> whitelist = new ArrayList<>();
 	{
@@ -52,16 +58,28 @@ public class AuthInterceptor implements HandlerInterceptor {
 		if (claims == null) {
 			throw new LoginException("请先登录");
 		}
-		this.putInfoDetailForSession(request,claims.get("userId", Integer.class));
+		Integer userId = claims.get("userId", Integer.class);
+		//校验用户合法性
+		UserEntity entity = userService.getById(userId);
+		if(entity == null){
+			throw new LoginException("用户不存在，请重新登录");
+		}
+		//若缓存不存在则要重新放进去
+		UserEntity userInfo = UserCacheUtil.getUserInfo(userId);
+		if (userInfo == null) {
+			//用户信息缓存
+			UserCacheUtil.putUserInfo(entity);
+		}
+		this.putInfoDetailForSession(request,userId,userInfo);
 		return true;
 	}
 
 	/**
 	 * 将登录的用户信息放到session，方便后面获取
 	 */
-	private void putInfoDetailForSession(HttpServletRequest request, Integer userId) {
+	private void putInfoDetailForSession(HttpServletRequest request, Integer userId,UserEntity userInfo) {
 		request.getSession().setAttribute("userId", userId);
-		request.getSession().setAttribute("userInfo", UserCacheUtil.getUserInfo(userId));
+		request.getSession().setAttribute("userInfo", userInfo);
 	}
 	
 	/**

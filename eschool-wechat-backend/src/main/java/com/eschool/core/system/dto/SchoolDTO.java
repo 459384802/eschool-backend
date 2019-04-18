@@ -1,27 +1,23 @@
-package com.eschool.core.system.entity;
+package com.eschool.core.system.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eschool.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
-
 /**
- * 位置信息表
+ * 学校信息表
  * 
  * @author yanghanchun
  * @version 1.0
  * @date 2019-03-21 16:21:11
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("yhc_locatoin")
-public class LocatoinEntity extends BaseEntity {
-
+public class SchoolDTO {
+    private Integer id;
     /**
-     * 城市名称
+     * 学校名称
      */
-	private String name;
+	private String text;
 
 }
