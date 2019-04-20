@@ -3,12 +3,36 @@
 
 <mapper namespace="com.eschool.core.order.mapper.OrderMapper">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.eschool.core.order.entity.OrderEntity" id="orderMap">
+	<resultMap type="com.eschool.core.order.dto.OrderListDTO" id="listMap">
         <result property="id" column="id"/>
-        <result property="taskId" column="task_id"/>
-        <result property="userId" column="user_id"/>
+        <result property="taskId" column="taskId"/>
+        <result property="taskTitle" column="task_title"/>
+        <result property="taskType" column="task_type"/>
+        <result property="fee" column="fee"/>
+        <result property="deadlineTime" column="deadline_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="taskStatus" column="task_status"/>
+        <result property="validStatus" column="valid_status"/>
     </resultMap>
 
-
+    <select id="queryForList" resultMap="listMap">
+        select
+            self.id,
+            task.id taskId,
+            task.task_title,
+            task.task_type,
+            task.fee,
+            task.deadline_time,
+            task.create_time,
+            task.task_status,
+            task.valid_status
+        from yhc_order self
+        LEFT JOIN yhc_task task ON self.task_id=task.id
+        where task.delete_status=0 and self.delete_status=0
+        and self.user_id=#{params.userId}
+        <if test="params.taskStatus != null and params.taskStatus != -1">
+            and task.task_status=#{params.taskStatus}
+        </if>
+        order by self.create_time desc
+    </select>
 </mapper>

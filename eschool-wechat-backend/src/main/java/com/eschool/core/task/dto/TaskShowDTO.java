@@ -99,6 +99,10 @@ public class TaskShowDTO {
      */
     private Integer orderUserId;
     /**
+     * 接单者用户头像
+     */
+    private String orderHeadImage;
+    /**
      * 接单者用户名称
      */
     private String orderNickName;

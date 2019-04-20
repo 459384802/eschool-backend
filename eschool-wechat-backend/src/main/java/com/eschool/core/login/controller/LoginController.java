@@ -34,11 +34,11 @@ public class LoginController {
     @PostMapping("/wxlogin")
     public SesssionDataDTO login(@RequestBody LoginParamDTO param){
         //访问code2Session微信登录凭证校验接口
-//        WXSessionModel model = wechatUtil.code2Session(param.getCode());
-//        if(!WXSessionModel.ERR_CODE_SUCCESS.equals(model.getErrcode())){
-//            throw new CustomException("系统繁忙，请稍候再试");
-//        }
-        WXSessionModel model = new WXSessionModel("1","session_key");
+        WXSessionModel model = wechatUtil.code2Session(param.getCode());
+        if(!WXSessionModel.ERR_CODE_SUCCESS.equals(model.getErrcode())){
+            throw new CustomException("系统繁忙，请稍候再试");
+        }
+//        WXSessionModel model = new WXSessionModel("1","session_key");
         //微信登录成功
         UserEntity userEntity = userService.getByOpenId(model.getOpenid());
         //第一次登陆要创建用户

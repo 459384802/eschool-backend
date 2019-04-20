@@ -37,5 +37,12 @@ public interface TaskService extends IService<TaskEntity> {
      * @return
      */
     IPage<TaskListDTO> queryForList(TaskSearchDTO dto);
+
+    /**
+     * 获取我的发布列表
+     * @param dto
+     * @return
+     */
+    IPage<TaskListDTO> queryForReleaseList(TaskSearchDTO dto);
 }
 

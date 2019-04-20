@@ -1,9 +1,14 @@
 package com.eschool.core.order.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eschool.common.exception.CustomException;
 import com.eschool.common.utils.Constant;
 import com.eschool.common.utils.ContextUtil;
+import com.eschool.core.order.dto.OrderListDTO;
+import com.eschool.core.order.dto.OrderSearchDTO;
+import com.eschool.core.task.dto.TaskListDTO;
 import com.eschool.core.task.entity.TaskEntity;
 import com.eschool.core.task.mapper.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +65,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
         taskEntity.setId(taskId);
         taskEntity.setTaskStatus(Constant.TASK_STATUS_WAIT);
         taskMapper.updateById(taskEntity);
+    }
+
+    @Override
+    public IPage<OrderListDTO> queryForList(OrderSearchDTO dto) {
+        return orderMapper.queryForList(new Page<>(dto.getPageNum(),dto.getPageSize()),dto);
     }
 }

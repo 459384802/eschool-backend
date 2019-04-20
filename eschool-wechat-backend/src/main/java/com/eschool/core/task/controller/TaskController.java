@@ -60,13 +60,16 @@ public class TaskController {
         return page;
     }
 
+    /**
+     * 我的发布
+     * @return
+     */
     @PostMapping("/release/list")
-    public List<TaskListDTO> release(){
+    public IPage<TaskListDTO> release(){
         TaskSearchDTO dto = new TaskSearchDTO();
         dto.setPageSize(-1);
         dto.setUserId(ContextUtil.getCurrentUserId());
-        IPage<TaskListDTO> page = taskService.queryForList(dto);
-        return page.getRecords();
+        return taskService.queryForReleaseList(dto);
     }
 
 }

@@ -33,4 +33,12 @@ public interface TaskMapper extends BaseMapper<TaskEntity> {
      * @return
      */
     IPage<TaskListDTO> queryForList(Page<?> page,@Param("params") TaskSearchDTO dto);
+
+    /**
+     * 获取我的发布列表
+     * @param objectPage
+     * @param dto
+     * @return
+     */
+    IPage<TaskListDTO> queryForReleaseList(Page<Object> objectPage,@Param("params") TaskSearchDTO dto);
 }

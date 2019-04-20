@@ -59,4 +59,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, TaskEntity> impleme
     public IPage<TaskListDTO> queryForList(TaskSearchDTO dto) {
         return taskMapper.queryForList(new Page<>(dto.getPageNum(),dto.getPageSize()),dto);
     }
+
+    @Override
+    public IPage<TaskListDTO> queryForReleaseList(TaskSearchDTO dto) {
+        return taskMapper.queryForReleaseList(new Page<>(dto.getPageNum(),dto.getPageSize()),dto);
+    }
 }

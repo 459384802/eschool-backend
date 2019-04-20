@@ -1,7 +1,11 @@
 package com.eschool.core.order.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.eschool.core.order.dto.OrderListDTO;
+import com.eschool.core.order.dto.OrderSearchDTO;
 import com.eschool.core.order.entity.OrderEntity;
+import com.eschool.core.task.dto.TaskListDTO;
 
 import java.util.Map;
 
@@ -24,5 +28,12 @@ public interface OrderService extends IService<OrderEntity> {
      * @param taskId
      */
     void removeOrder(Integer taskId);
+
+    /**
+     * 获取订单列表
+     * @param dto
+     * @return
+     */
+    IPage<OrderListDTO> queryForList(OrderSearchDTO dto);
 }
 
