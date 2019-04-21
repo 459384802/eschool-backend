@@ -9,6 +9,7 @@
         <collection property="schoolList" ofType="com.eschool.core.system.dto.SchoolDTO">
             <result property="id" column="schoolId"/>
             <result property="text" column="schoolName"/>
+            <result property="isDefault" column="is_default"/>
         </collection>
     </resultMap>
 
@@ -17,7 +18,8 @@
             self.id,
             self.name,
             school.id schoolId,
-            school.name schoolName
+            school.name schoolName,
+            school.is_default
         from yhc_location self
         LEFT JOIN yhc_school school ON self.id=school.location_id and school.delete_status=0
         where self.delete_status=0

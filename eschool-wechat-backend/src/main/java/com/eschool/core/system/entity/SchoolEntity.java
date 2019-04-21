@@ -39,5 +39,9 @@ public class SchoolEntity extends BaseEntity {
      * 学校范围半径
      */
 	private Integer radius;
+    /**
+     * 是否是默认学校：0-否 1-是
+     */
+	private Integer isDefault;
 
 }

@@ -37,6 +37,12 @@ public class CustomExceptionHandler {
 		return new DataResponse<>(501, "token验证不通过");
 	}
 
+	@ExceptionHandler(WechatException.class)
+	public DataResponse<?> handleWechatException(LoginException e){
+		log.error("访问微信接口异常", e);
+		return new DataResponse<>(501, "访问微信接口异常");
+	}
+
 	@ExceptionHandler(RuntimeException.class)
 	public DataResponse<?> handleException(RuntimeException e){
 		if(e instanceof IndexOutOfBoundsException) {

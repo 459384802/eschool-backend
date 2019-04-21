@@ -1,9 +1,9 @@
 spring:
   ##数据库连接信息
   datasource:
-    url: jdbc:mysql://192.168.86.147:3306/eschool?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://172.17.0.1:3306/eschool_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: yhc5291261
     driver-class-name: com.mysql.jdbc.Driver
     ###################以下为druid增加的配置###########################
     type: com.alibaba.druid.pool.DruidDataSource
@@ -39,11 +39,7 @@ spring:
 
 # druid管理登录用户名，与密码，访问地址为：http://<ip>:<port>/druid
 loginUsername: root
-loginPassword: root
-
-weixin:
-  appId: 123
-  appSecret: 5291261
+loginPassword: yhc5291261
 
 #统一设置eureka instance地址
 #eurekaInstanceIpAddr: ${spring.cloud.client.ip-address}

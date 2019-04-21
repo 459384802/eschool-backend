@@ -4,9 +4,16 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
-  port: 80
+  #https加密端口为443
+  port: 443
   servlet:
     path: /
+  #配置SSL证书
+  ssl:
+    key-store: classpath:server.jks
+    key-store-password: Mz8&rA&Xco!Kc&Pg
+    keyStoreType: jks
+
 spring:
   profiles:
     # 环境 dev|test|pro
@@ -38,4 +45,8 @@ mybatis-plus:
     cache-enabled: false
     #别名设置
   type-aliases-package: com.eschool.**.**.entity
+
+weixin:
+  appId: wx7d866d433aa31957
+  appSecret: a372bb8c388c50603e147082e0997905
 

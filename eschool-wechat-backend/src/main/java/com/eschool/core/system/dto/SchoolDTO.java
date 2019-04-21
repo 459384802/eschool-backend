@@ -20,4 +20,5 @@ public class SchoolDTO {
      */
 	private String text;
 
+	private Integer isDefault;
 }

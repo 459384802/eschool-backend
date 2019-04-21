@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class WXSessionModel {
     /**
-     * 请求成功
+     * 系统繁忙，此时请开发者稍候再试
      */
-    public static final Integer ERR_CODE_SUCCESS = 0;
+    public static final Integer ERR_CODE_BUSY = -1;
 
     /**
      * 会话密钥

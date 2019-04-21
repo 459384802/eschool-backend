@@ -2,6 +2,7 @@ package com.eschool.core.login.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.eschool.common.exception.CustomException;
+import com.eschool.common.exception.WechatException;
 import com.eschool.common.utils.JwtUtil;
 import com.eschool.common.utils.UserCacheUtil;
 import com.eschool.common.utils.WechatUtil;
@@ -13,6 +14,7 @@ import com.eschool.core.system.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +27,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/login")
+@Slf4j
 public class LoginController {
     @Autowired
     private WechatUtil wechatUtil;
@@ -35,8 +38,10 @@ public class LoginController {
     public SesssionDataDTO login(@RequestBody LoginParamDTO param){
         //访问code2Session微信登录凭证校验接口
         WXSessionModel model = wechatUtil.code2Session(param.getCode());
-        if(!WXSessionModel.ERR_CODE_SUCCESS.equals(model.getErrcode())){
-            throw new CustomException("系统繁忙，请稍候再试");
+        if(WXSessionModel.ERR_CODE_BUSY.equals(model.getErrcode())){
+            throw new CustomException("系统繁忙，请稍后再试");
+        }else if(model.getErrcode() != null){
+            throw new WechatException("访问code2Session微信登录凭证校验接口异常，异常信息：" + model.getErrmsg());
         }
 //        WXSessionModel model = new WXSessionModel("1","session_key");
         //微信登录成功
